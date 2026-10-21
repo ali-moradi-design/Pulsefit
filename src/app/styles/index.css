@@ -1,0 +1,119 @@
+@import 'tailwindcss';
+@import '@fontsource-variable/sora';
+@import '@fontsource-variable/figtree';
+
+@custom-variant neon (&:where([data-theme='neon'], [data-theme='neon'] *));
+
+/* Semantic tokens: raw values per theme, mapped to Tailwind colors below. */
+:root,
+[data-theme='light'] {
+  --bg: #f4f5f7;
+  --surface: #ffffff;
+  --surface-2: #eceef2;
+  --border: #e1e4ea;
+  --text: #11151c;
+  --muted: #5a6372;
+  --on-accent: #ffffff;
+  --accent: #c23a20;
+  --accent-soft: #fff0ec;
+  --protein: #2f6fdb;
+  --carbs: #b87500;
+  --fat: #8b4fd6;
+  --ok: #137a40;
+  --warn: #b87500;
+  --glow: none;
+  --glow-strong: none;
+  color-scheme: light;
+}
+[data-theme='dark'] {
+  --bg: #0f1522;
+  --surface: #172033;
+  --surface-2: #1f2a40;
+  --border: #2a3753;
+  --text: #e8eef8;
+  --muted: #9aa8c0;
+  --on-accent: #06231a;
+  --accent: #3ee0a1;
+  --accent-soft: #12352c;
+  --protein: #7fb2ff;
+  --carbs: #f5c35b;
+  --fat: #c59cff;
+  --ok: #3ee0a1;
+  --warn: #f5c35b;
+  --glow: none;
+  --glow-strong: none;
+  color-scheme: dark;
+}
+[data-theme='neon'] {
+  --bg: #06060a;
+  --surface: #0f0f17;
+  --surface-2: #171722;
+  --border: #26263a;
+  --text: #f3f3fa;
+  --muted: #a6a6c0;
+  --on-accent: #041014;
+  --accent: #22e3f5;
+  --accent-soft: #08262b;
+  --protein: #22e3f5;
+  --carbs: #b8f53a;
+  --fat: #f25cf0;
+  --ok: #b8f53a;
+  --warn: #f25cf0;
+  --glow: 0 0 12px rgb(34 227 245 / 0.35);
+  --glow-strong: 0 0 18px rgb(34 227 245 / 0.55), 0 0 42px rgb(34 227 245 / 0.25);
+  color-scheme: dark;
+}
+@media (prefers-reduced-motion: reduce) {
+  [data-theme='neon'] {
+    --glow: none;
+    --glow-strong: none;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+@theme inline {
+  --color-bg: var(--bg);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-border: var(--border);
+  --color-text: var(--text);
+  --color-muted: var(--muted);
+  --color-on-accent: var(--on-accent);
+  --color-accent: var(--accent);
+  --color-accent-soft: var(--accent-soft);
+  --color-protein: var(--protein);
+  --color-carbs: var(--carbs);
+  --color-fat: var(--fat);
+  --color-ok: var(--ok);
+  --color-warn: var(--warn);
+  --shadow-glow: var(--glow);
+  --shadow-glow-strong: var(--glow-strong);
+  --font-sans: 'Figtree Variable', system-ui, sans-serif;
+  --font-display: 'Sora Variable', 'Figtree Variable', sans-serif;
+}
+
+html,
+body,
+#root {
+  min-height: 100%;
+}
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-sans);
+  -webkit-tap-highlight-color: transparent;
+}
+h1,
+h2,
+h3 {
+  font-family: var(--font-display);
+  letter-spacing: -0.01em;
+}
+.tabular {
+  font-variant-numeric: tabular-nums;
+}

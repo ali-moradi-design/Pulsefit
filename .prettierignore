@@ -1,0 +1,7 @@
+pnpm-lock.yaml
+dist
+dev-dist
+docs/mockups
+graphify-out
+playwright-report
+test-results

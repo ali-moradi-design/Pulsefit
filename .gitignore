@@ -1,4 +1,7 @@
 node_modules/
 dist/
+dev-dist/
 graphify-out/
+playwright-report/
+test-results/
 .DS_Store

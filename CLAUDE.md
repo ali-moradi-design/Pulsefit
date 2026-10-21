@@ -11,6 +11,13 @@ start of every session. Mockups are in `docs/mockups/` (source in
 - Architecture: Feature-Sliced Design (`app`, `pages`, `widgets`, `features`,
   `entities`, `shared`); imports only go downward; each slice exposes a public
   `index.ts`. Steiger checks the rules in CI.
+- TypeScript 6 (not 7: typescript-eslint does not support TS 7 yet).
+- Charts: uPlot. Fonts: Sora (headings, numbers) and Figtree (body), self-hosted
+  with Fontsource so they work offline.
+- Themes: light (coral on light grey), dark (mint on navy), neon (cyan, lime,
+  magenta on near-black). Tokens live in `src/app/styles/index.css`.
+- Roles come from the URL (`/athlete/*`, `/coach/*`), so two tabs can show
+  both roles at once.
 - Work in small PRs: branch → PR → CI → squash merge. Explain each step.
 - Keep it a simple sample app: no features outside the brief without asking.
 
