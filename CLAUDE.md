@@ -23,15 +23,25 @@ start of every session. Mockups are in `docs/mockups/` (source in
 
 ## graphify
 
-Use graphify to save tokens once the repo has code:
+Use graphify to save tokens; the code graph needs no LLM:
 
-- After the first scaffold, build the graph from code only
-  (`/graphify .`, skip `docs/mockups/`, `node_modules/`, `dist/`).
-- For questions about structure ("where is X", "what imports Y", which FSD
-  layer owns Z) run `graphify query "<question>"` before reading files, then
-  read only the files it points to.
-- After each merged PR, refresh with `/graphify . --update` (changed files only).
-- `graphify-out/` is not committed.
+- Build or refresh: `graphify update .` (AST only, a few seconds). Run it at the
+  start of a session if `graphify-out/` is missing, and after each merged PR.
+- For structure questions ("where is X", "what calls Y", which FSD layer owns Z)
+  run `graphify query "<question>" --budget 800` (or `graphify explain "Symbol"`)
+  before opening files, then read only the files it points to.
+- Do not run the full `/graphify` pipeline (LLM extraction) unless asked; the docs
+  are few and short.
+- `graphify-out/` is git-ignored.
+
+## Where things are
+
+- Service worker: `src/app/sw/` (`sw.ts` routes and events, `mock-server.ts`,
+  `outbox.ts` flush, `actions.ts` notification buttons).
+- Data: `src/shared/db` (worker-safe Dexie, channel, reminder check) and
+  `src/shared/api` (outbox writes, sync triggers, seed).
+- E2E helpers in `e2e/helpers.ts`; the update test runs in its own Playwright
+  project because it edits `dist/sw.js`.
 
 ## Language
 

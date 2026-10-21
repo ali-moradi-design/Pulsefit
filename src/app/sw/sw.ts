@@ -7,7 +7,8 @@ import {
 import { NavigationRoute, registerRoute, setCatchHandler } from 'workbox-routing'
 import { CacheFirst, StaleWhileRevalidate } from 'workbox-strategies'
 import { ExpirationPlugin } from 'workbox-expiration'
-import { SYNC_TAG } from '@/shared/db'
+import { isReminderDue, loadReminderSettings, PERIODIC_TAG, SYNC_TAG } from '@/shared/db'
+import { markNoteRead, markTodayDone } from './actions'
 import { clearServer, networkFirstApi } from './mock-server'
 import { flushOutbox } from './outbox'
 
@@ -64,4 +65,59 @@ type SyncEvent = ExtendableEvent & { tag: string }
 self.addEventListener('sync', (event) => {
   const e = event as SyncEvent
   if (e.tag === SYNC_TAG) e.waitUntil(flushOutbox())
+})
+
+type NotificationData = { url?: string; kind?: string; noteId?: string }
+
+// Notification buttons work even when no tab is open.
+self.addEventListener('notificationclick', (event) => {
+  const data = (event.notification.data ?? {}) as NotificationData
+  event.notification.close()
+  if (event.action === 'done') return event.waitUntil(markTodayDone())
+  if (event.action === 'read' && data.noteId) return event.waitUntil(markNoteRead(data.noteId))
+  const url = event.action === 'start' ? '/athlete/workout?start=1' : (data.url ?? '/athlete')
+  event.waitUntil(
+    (async () => {
+      const clients = await self.clients.matchAll({ type: 'window', includeUncontrolled: true })
+      const client = clients[0]
+      if (client) {
+        await client.focus()
+        return void (await client.navigate(url).catch(() => null))
+      }
+      await self.clients.openWindow(url)
+    })(),
+  )
+})
+
+type PeriodicSyncEvent = ExtendableEvent & { tag: string }
+
+// Periodic Background Sync (Chromium, installed app): refresh cached data now and then,
+// and show the workout reminder if the app was not opened today.
+self.addEventListener('periodicsync', (event) => {
+  const e = event as PeriodicSyncEvent
+  if (e.tag !== PERIODIC_TAG) return
+  e.waitUntil(
+    (async () => {
+      await Promise.allSettled([
+        caches
+          .open('libraries')
+          .then((c) => c.addAll(['/data/exercises.json', '/data/foods.json'])),
+        networkFirstApi(new Request('/api/programs')),
+        flushOutbox(),
+      ])
+      const settings = await loadReminderSettings()
+      if (settings?.enabled && (await isReminderDue(settings.time))) {
+        await self.registration.showNotification('Time to train', {
+          body: 'Your workout for today is waiting.',
+          icon: '/icons/icon-192.png',
+          tag: 'reminder',
+          data: { kind: 'reminder', url: '/athlete/workout?start=1' },
+          actions: [
+            { action: 'start', title: 'Start workout' },
+            { action: 'done', title: 'Mark done' },
+          ],
+        } as NotificationOptions)
+      }
+    })(),
+  )
 })

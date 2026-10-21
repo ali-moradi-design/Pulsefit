@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { useExerciseMap } from '@/entities/library'
 import { previousSets, totalSets, useWorkoutLogs } from '@/entities/training'
-import { useWakeLock } from '@/shared/lib'
+import { notify, useWakeLock } from '@/shared/lib'
 import { Button, Card, Chip, Icon, ProgressBar } from '@/shared/ui'
 import { useSession } from '../model/session'
 import { RestTimer } from './rest-timer'
@@ -17,7 +17,7 @@ function useElapsed(startedAt: number | undefined) {
   return `${Math.floor(s / 60)}:${String(s % 60).padStart(2, '0')}`
 }
 
-export function WorkoutPlayer({ onRestDone }: { onRestDone?: () => void }) {
+export function WorkoutPlayer() {
   const { log, day, exerciseIndex, logSet, goTo, finish } = useSession()
   const exercises = useExerciseMap()
   const history = useWorkoutLogs()
@@ -103,7 +103,16 @@ export function WorkoutPlayer({ onRestDone }: { onRestDone?: () => void }) {
         </table>
       </Card>
 
-      <RestTimer onDone={onRestDone} />
+      <RestTimer
+        onDone={() => {
+          if (document.visibilityState === 'hidden')
+            void notify('Rest is over', {
+              body: `${name}: set ${nextSet ?? item.sets} is next.`,
+              tag: 'rest',
+              data: { kind: 'rest', url: '/athlete/workout' },
+            })
+        }}
+      />
 
       <div className="flex gap-2">
         <Button

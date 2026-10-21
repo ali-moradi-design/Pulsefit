@@ -44,7 +44,10 @@ export async function assignProgram(base: Program, v: ProgramFormOut) {
     updatedAt: Date.now(),
   }
   await saveRecord('programs', program)
-  if (v.note) await saveRecord('notes', { id: newId(), text: v.note, createdAt: Date.now() })
   postMessage({ type: 'program-assigned', programName: program.name })
-  if (v.note) postMessage({ type: 'note-sent', text: v.note })
+  if (v.note) {
+    const id = newId()
+    await saveRecord('notes', { id, text: v.note, createdAt: Date.now() })
+    postMessage({ type: 'note-sent', noteId: id, text: v.note })
+  }
 }

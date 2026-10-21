@@ -1,7 +1,5 @@
-// Renders the PWA icons and install screenshots with Playwright.
-// Run after `pnpm build` is not needed: `node scripts/generate-assets.mjs`.
+// Renders the PWA icons with Playwright: `node scripts/generate-assets.mjs`.
 import { chromium } from '@playwright/test'
-import { copyFile } from 'node:fs/promises'
 
 const pulse = (stroke) =>
   `<path d="M8 34h12l6-16 12 30 6-14h12" fill="none" stroke="${stroke}" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>`
@@ -34,9 +32,4 @@ for (const [file, svg] of targets) {
 }
 await browser.close()
 
-// Install dialog screenshots come from the approved mockups.
-const mockups = new URL('../docs/mockups/', import.meta.url).pathname
-await copyFile(mockups + 'dark-today.png', out + 'screenshots/today-narrow.png')
-await copyFile(mockups + 'dark-workout.png', out + 'screenshots/workout-narrow.png')
-await copyFile(mockups + 'overview-dark.png', out + 'screenshots/overview-wide.png')
-console.log('assets written')
+console.log('icons written')

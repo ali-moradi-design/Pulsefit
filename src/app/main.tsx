@@ -2,7 +2,7 @@ import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import { initInstall } from '@/features/install-app'
 import { initUpdates } from '@/features/update-app'
-import { initSync, seedIfEmpty } from '@/shared/api'
+import { initSync, registerPeriodicRefresh, seedIfEmpty } from '@/shared/api'
 import { App } from './app'
 import './styles/index.css'
 
@@ -10,6 +10,7 @@ initInstall()
 initUpdates()
 initSync()
 void seedIfEmpty()
+void registerPeriodicRefresh()
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>

@@ -1,15 +1,12 @@
 import { expect, test } from '@playwright/test'
+import { waitForServiceWorker } from './helpers'
 
 test('queues changes offline and syncs them to the mock API when back online', async ({
   page,
   context,
 }) => {
   await page.goto('/athlete/progress')
-  await page.evaluate(async () => {
-    await navigator.serviceWorker.ready
-  })
-  await page.reload()
-  await expect.poll(() => page.evaluate(() => !!navigator.serviceWorker.controller)).toBe(true)
+  await waitForServiceWorker(page)
   const status = page.getByTestId('sync-status')
   await expect(status).toHaveText('All changes synced')
 

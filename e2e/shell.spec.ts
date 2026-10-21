@@ -12,7 +12,7 @@ test('opens the athlete today page and switches role', async ({ page }) => {
 
 for (const theme of ['light', 'dark', 'neon'] as const) {
   test(`has no axe violations in the ${theme} theme`, async ({ page }) => {
-    await page.goto('/')
+    await page.goto('/status')
     await page.getByRole('radio', { name: theme[0]!.toUpperCase() + theme.slice(1) }).click()
     await expect(page.locator('html')).toHaveAttribute('data-theme', theme)
     const results = await new AxeBuilder({ page }).withTags(['wcag2a', 'wcag2aa']).analyze()

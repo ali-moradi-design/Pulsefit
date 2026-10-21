@@ -44,13 +44,6 @@ export default defineConfig({
         ],
         screenshots: [
           {
-            src: '/screenshots/today-narrow.png',
-            sizes: '780x1688',
-            type: 'image/png',
-            form_factor: 'narrow',
-            label: "Today's workout and nutrition",
-          },
-          {
             src: '/screenshots/workout-narrow.png',
             sizes: '780x1688',
             type: 'image/png',
@@ -58,11 +51,18 @@ export default defineConfig({
             label: 'Workout player with rest timer',
           },
           {
-            src: '/screenshots/overview-wide.png',
-            sizes: '1720x964',
+            src: '/screenshots/progress-narrow.png',
+            sizes: '780x1688',
+            type: 'image/png',
+            form_factor: 'narrow',
+            label: 'Progress in the neon theme',
+          },
+          {
+            src: '/screenshots/coach-wide.png',
+            sizes: '1280x800',
             type: 'image/png',
             form_factor: 'wide',
-            label: 'Athlete and coach screens',
+            label: 'Coach program builder',
           },
         ],
         shortcuts: [

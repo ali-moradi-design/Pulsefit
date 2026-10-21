@@ -1,7 +1,7 @@
 import { create } from 'zustand'
 import { saveRecord } from '@/shared/api'
 import { db, type LoggedSet, type Program, type ProgramDay, type WorkoutLog } from '@/shared/db'
-import { newId, toDateKey } from '@/shared/lib'
+import { newId, persistStorage, toDateKey } from '@/shared/lib'
 import { useBusy } from '@/shared/model'
 
 type Rest = { endsAt: number; total: number }
@@ -38,6 +38,8 @@ export const useSession = create<SessionState>()((set, get) => ({
       startedAt: Date.now(),
     }
     await saveRecord('workoutLogs', log)
+    // The first logged workout is a good moment to ask the browser to keep our data.
+    void persistStorage()
     set({ log, day, exerciseIndex: 0, rest: null })
     setBusy(true)
   },
