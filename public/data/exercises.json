@@ -1,0 +1,116 @@
+{
+  "exercises": [
+    {
+      "id": "bench-press",
+      "name": "Bench press",
+      "muscle": "chest",
+      "equipment": "barbell",
+      "cue": "Keep shoulder blades pinned and feet planted."
+    },
+    {
+      "id": "push-up",
+      "name": "Push-up",
+      "muscle": "chest",
+      "equipment": "bodyweight",
+      "cue": "Body in one straight line from head to heels."
+    },
+    {
+      "id": "barbell-row",
+      "name": "Barbell row",
+      "muscle": "back",
+      "equipment": "barbell",
+      "cue": "Hinge to about 45 degrees and pull to the lower ribs."
+    },
+    {
+      "id": "lat-pulldown",
+      "name": "Lat pulldown",
+      "muscle": "back",
+      "equipment": "cable",
+      "cue": "Lead with the elbows; do not lean back far."
+    },
+    {
+      "id": "pull-up",
+      "name": "Pull-up",
+      "muscle": "back",
+      "equipment": "bodyweight",
+      "cue": "Start from a dead hang; chin over the bar."
+    },
+    {
+      "id": "face-pull",
+      "name": "Face pull",
+      "muscle": "shoulders",
+      "equipment": "cable",
+      "cue": "Pull to eye level and rotate the hands out."
+    },
+    {
+      "id": "overhead-press",
+      "name": "Overhead press",
+      "muscle": "shoulders",
+      "equipment": "barbell",
+      "cue": "Squeeze glutes; press in a straight line."
+    },
+    {
+      "id": "back-squat",
+      "name": "Back squat",
+      "muscle": "legs",
+      "equipment": "barbell",
+      "cue": "Knees track over toes; hips below parallel."
+    },
+    {
+      "id": "deadlift",
+      "name": "Deadlift",
+      "muscle": "legs",
+      "equipment": "barbell",
+      "cue": "Bar close to the shins; push the floor away."
+    },
+    {
+      "id": "romanian-deadlift",
+      "name": "Romanian deadlift",
+      "muscle": "legs",
+      "equipment": "barbell",
+      "cue": "Soft knees; push the hips back until hamstrings stretch."
+    },
+    {
+      "id": "leg-press",
+      "name": "Leg press",
+      "muscle": "legs",
+      "equipment": "machine",
+      "cue": "Lower back stays on the pad."
+    },
+    {
+      "id": "walking-lunge",
+      "name": "Walking lunge",
+      "muscle": "legs",
+      "equipment": "dumbbell",
+      "cue": "Long step; back knee nearly touches the floor."
+    },
+    {
+      "id": "calf-raise",
+      "name": "Calf raise",
+      "muscle": "legs",
+      "equipment": "machine",
+      "cue": "Full stretch at the bottom, pause at the top."
+    },
+    {
+      "id": "dumbbell-curl",
+      "name": "Dumbbell curl",
+      "muscle": "arms",
+      "equipment": "dumbbell",
+      "cue": "Elbows stay at your sides."
+    },
+    {
+      "id": "triceps-pushdown",
+      "name": "Triceps pushdown",
+      "muscle": "arms",
+      "equipment": "cable",
+      "cue": "Lock the elbows in; finish with straight arms."
+    },
+    {
+      "id": "plank",
+      "name": "Plank",
+      "muscle": "core",
+      "equipment": "bodyweight",
+      "cue": "Ribs down, glutes tight; hold the position."
+    }
+  ]
+}
