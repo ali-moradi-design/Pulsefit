@@ -37,20 +37,20 @@ export function LogWeightForm() {
       <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-3" noValidate>
         <h2 className="text-lg font-bold">Log today’s measurements</h2>
         <div className="flex gap-2">
-          <label className="flex flex-1 flex-col gap-1 text-xs font-semibold text-muted">
+          <label className="flex min-w-0 flex-1 flex-col gap-1 text-xs font-semibold text-muted">
             Weight (kg)
             <input
               inputMode="decimal"
-              className="h-11 rounded-xl bg-surface-2 px-3 text-base text-text"
+              className="h-11 w-full min-w-0 rounded-xl bg-surface-2 px-3 text-base text-text"
               aria-invalid={!!errors.weightKg}
               {...register('weightKg')}
             />
           </label>
-          <label className="flex flex-1 flex-col gap-1 text-xs font-semibold text-muted">
+          <label className="flex min-w-0 flex-1 flex-col gap-1 text-xs font-semibold text-muted">
             Waist (cm, optional)
             <input
               inputMode="decimal"
-              className="h-11 rounded-xl bg-surface-2 px-3 text-base text-text"
+              className="h-11 w-full min-w-0 rounded-xl bg-surface-2 px-3 text-base text-text"
               {...register('waistCm')}
             />
           </label>
