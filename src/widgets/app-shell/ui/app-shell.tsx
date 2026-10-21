@@ -1,5 +1,7 @@
 import { Link, Outlet, useLocation } from 'react-router'
+import { InstallBanner } from '@/features/install-app'
 import { ThemeSwitcher } from '@/features/switch-theme'
+import { UpdatePrompt } from '@/features/update-app'
 import { routes, type Role } from '@/shared/config'
 import { Icon } from '@/shared/ui'
 import { BottomNav } from './bottom-nav'
@@ -26,11 +28,13 @@ export function AppShell() {
         </div>
       </header>
       <main className="mx-auto flex w-full max-w-xl flex-1 flex-col gap-3.5 px-4 pb-4">
+        <InstallBanner />
         <Outlet />
         <div className="mt-auto flex justify-center pt-4">
           <ThemeSwitcher />
         </div>
       </main>
+      <UpdatePrompt />
       <BottomNav role={role} />
     </div>
   )
