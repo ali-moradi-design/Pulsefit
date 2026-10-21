@@ -1,5 +1,6 @@
 import { Link, Outlet, useLocation } from 'react-router'
 import { InstallBanner } from '@/features/install-app'
+import { LiveToasts } from '@/features/live-updates'
 import { ThemeSwitcher } from '@/features/switch-theme'
 import { UpdatePrompt } from '@/features/update-app'
 import { routes, type Role } from '@/shared/config'
@@ -34,6 +35,7 @@ export function AppShell() {
           <ThemeSwitcher />
         </div>
       </main>
+      <LiveToasts enabled={role === 'athlete'} />
       <UpdatePrompt />
       <BottomNav role={role} />
     </div>
