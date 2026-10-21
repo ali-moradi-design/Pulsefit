@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Pulsefit mockups</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700&family=Figtree:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
 /* Semantic tokens. Mockup only: the app will define the same names in Tailwind v4 @theme. */
 :root, [data-theme="light"] {
@@ -16,10 +16,10 @@
   --glow: none; --glow-strong: none; --radius: 18px;
 }
 [data-theme="dark"] {
-  --bg: #0e1116; --surface: #171b22; --surface-2: #20252e; --border: #2a303b;
-  --text: #e9edf3; --muted: #9aa3b2; --on-accent: #16090a;
-  --accent: #ff6b52; --accent-soft: #3a1d19;
-  --protein: #6ea2ff; --carbs: #f0b440; --fat: #b98af2; --ok: #4ccf86;
+  --bg: #0f1522; --surface: #172033; --surface-2: #1f2a40; --border: #2a3753;
+  --text: #e8eef8; --muted: #9aa8c0; --on-accent: #06231a;
+  --accent: #3ee0a1; --accent-soft: #12352c;
+  --protein: #7fb2ff; --carbs: #f5c35b; --fat: #c59cff; --ok: #3ee0a1;
   --glow: none; --glow-strong: none;
 }
 [data-theme="neon"] {
@@ -34,8 +34,8 @@
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
 html, body { background: var(--bg); }
-body { font: 15px/1.4 Inter, system-ui, sans-serif; color: var(--text); width: 390px; height: 844px; overflow: hidden; }
-h1, h2, h3, .num { font-family: "Space Grotesk", Inter, sans-serif; letter-spacing: -.01em; }
+body { font: 15px/1.4 Figtree, system-ui, sans-serif; color: var(--text); width: 390px; height: 844px; overflow: hidden; }
+h1, h2, h3, .num { font-family: Sora, Figtree, sans-serif; letter-spacing: -.01em; }
 .screen { display: none; height: 844px; flex-direction: column; }
 .screen.on { display: flex; }
 
@@ -51,7 +51,7 @@ h1, h2, h3, .num { font-family: "Space Grotesk", Inter, sans-serif; letter-spaci
 .chip { display: inline-flex; align-items: center; gap: 6px; padding: 5px 10px; border-radius: 999px; font-size: 12px; font-weight: 600; background: var(--surface-2); color: var(--text); }
 .chip.accent { background: var(--accent-soft); color: var(--accent); }
 .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--carbs); }
-.btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; height: 48px; padding: 0 20px; border-radius: 14px; border: 0; font: 600 15px Inter, sans-serif; background: var(--accent); color: var(--on-accent); box-shadow: var(--glow); }
+.btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; height: 48px; padding: 0 20px; border-radius: 14px; border: 0; font: 600 15px Figtree, sans-serif; background: var(--accent); color: var(--on-accent); box-shadow: var(--glow); }
 .btn.ghost { background: var(--surface-2); color: var(--text); box-shadow: none; }
 .btn.block { width: 100%; }
 .icon { width: 20px; height: 20px; stroke: currentColor; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
