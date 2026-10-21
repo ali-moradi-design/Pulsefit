@@ -1,0 +1,304 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pulsefit mockups</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* Semantic tokens. Mockup only: the app will define the same names in Tailwind v4 @theme. */
+:root, [data-theme="light"] {
+  --bg: #f4f5f7; --surface: #ffffff; --surface-2: #eceef2; --border: #e1e4ea;
+  --text: #11151c; --muted: #5a6372; --on-accent: #ffffff;
+  --accent: #c23a20; --accent-soft: #fff0ec;
+  --protein: #2f6fdb; --carbs: #d98a00; --fat: #8b4fd6; --ok: #137a40;
+  --glow: none; --glow-strong: none; --radius: 18px;
+}
+[data-theme="dark"] {
+  --bg: #0e1116; --surface: #171b22; --surface-2: #20252e; --border: #2a303b;
+  --text: #e9edf3; --muted: #9aa3b2; --on-accent: #16090a;
+  --accent: #ff6b52; --accent-soft: #3a1d19;
+  --protein: #6ea2ff; --carbs: #f0b440; --fat: #b98af2; --ok: #4ccf86;
+  --glow: none; --glow-strong: none;
+}
+[data-theme="neon"] {
+  --bg: #06060a; --surface: #0f0f17; --surface-2: #171722; --border: #26263a;
+  --text: #f3f3fa; --muted: #a6a6c0; --on-accent: #041014;
+  --accent: #22e3f5; --accent-soft: #08262b;
+  --protein: #22e3f5; --carbs: #b8f53a; --fat: #f25cf0; --ok: #b8f53a;
+  --glow: 0 0 12px rgb(34 227 245 / .35);
+  --glow-strong: 0 0 18px rgb(34 227 245 / .55), 0 0 42px rgb(34 227 245 / .25);
+}
+@media (prefers-reduced-motion: reduce) { [data-theme="neon"] { --glow: none; --glow-strong: none; } }
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { background: var(--bg); }
+body { font: 15px/1.4 Inter, system-ui, sans-serif; color: var(--text); width: 390px; height: 844px; overflow: hidden; }
+h1, h2, h3, .num { font-family: "Space Grotesk", Inter, sans-serif; letter-spacing: -.01em; }
+.screen { display: none; height: 844px; flex-direction: column; }
+.screen.on { display: flex; }
+
+.status { height: 44px; display: flex; align-items: center; justify-content: space-between; padding: 0 22px; font-weight: 600; font-size: 14px; }
+.status span:last-child { letter-spacing: 2px; font-size: 11px; }
+.content { flex: 1; padding: 6px 16px 16px; display: flex; flex-direction: column; gap: 12px; overflow: hidden; }
+.row { display: flex; align-items: center; gap: 10px; }
+.between { justify-content: space-between; }
+.muted { color: var(--muted); }
+.small { font-size: 13px; }
+.xs { font-size: 12px; }
+.card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 16px; }
+.chip { display: inline-flex; align-items: center; gap: 6px; padding: 5px 10px; border-radius: 999px; font-size: 12px; font-weight: 600; background: var(--surface-2); color: var(--text); }
+.chip.accent { background: var(--accent-soft); color: var(--accent); }
+.dot { width: 8px; height: 8px; border-radius: 50%; background: var(--carbs); }
+.btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; height: 48px; padding: 0 20px; border-radius: 14px; border: 0; font: 600 15px Inter, sans-serif; background: var(--accent); color: var(--on-accent); box-shadow: var(--glow); }
+.btn.ghost { background: var(--surface-2); color: var(--text); box-shadow: none; }
+.btn.block { width: 100%; }
+.icon { width: 20px; height: 20px; stroke: currentColor; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+
+.toggle { display: inline-flex; background: var(--surface-2); border-radius: 999px; padding: 3px; }
+.toggle b { padding: 6px 12px; border-radius: 999px; font-size: 12px; font-weight: 600; color: var(--muted); }
+.toggle b.on { background: var(--surface); color: var(--text); box-shadow: 0 1px 2px rgb(0 0 0 / .12); }
+
+.nav { height: 78px; border-top: 1px solid var(--border); background: var(--surface); display: flex; justify-content: space-around; padding-top: 10px; }
+.nav a { display: flex; flex-direction: column; align-items: center; gap: 4px; font-size: 11px; font-weight: 600; color: var(--muted); text-decoration: none; width: 70px; }
+.nav a.on { color: var(--accent); }
+.nav a.on .icon { filter: drop-shadow(var(--glow)); }
+
+.bar { height: 8px; border-radius: 99px; background: var(--surface-2); overflow: hidden; }
+.bar i { display: block; height: 100%; border-radius: 99px; }
+.ring-txt { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+.ring { position: relative; }
+.ring circle.track { stroke: var(--surface-2); }
+.ring circle.val { stroke: var(--accent); filter: drop-shadow(var(--glow)); }
+
+.list > * + * { border-top: 1px solid var(--border); }
+.item { padding: 9px 0; display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+.thumb { width: 40px; height: 40px; border-radius: 12px; background: var(--surface-2); display: grid; place-items: center; color: var(--muted); flex: none; }
+
+/* workout */
+.sets { width: 100%; border-collapse: collapse; font-size: 14px; }
+.sets th { font-size: 11px; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); font-weight: 600; text-align: left; padding: 0 6px 8px; }
+.sets td { padding: 6px; }
+.sets .cell { background: var(--surface-2); border-radius: 10px; height: 38px; display: grid; place-items: center; font-weight: 600; }
+.sets tr.done .cell { opacity: .55; }
+.sets tr.current .cell { outline: 2px solid var(--accent); box-shadow: var(--glow); }
+.check { width: 38px; height: 38px; border-radius: 10px; display: grid; place-items: center; background: var(--surface-2); color: var(--muted); }
+.check.done { background: var(--ok); color: var(--bg); }
+
+/* coach */
+.days { display: flex; gap: 6px; }
+.days b { flex: 1; text-align: center; padding: 9px 0; border-radius: 12px; background: var(--surface); border: 1px solid var(--border); font-size: 12px; font-weight: 600; color: var(--muted); }
+.days b.on { background: var(--accent); color: var(--on-accent); border-color: transparent; box-shadow: var(--glow); }
+.days b.rest { opacity: .5; }
+.field { background: var(--surface); border: 1px solid var(--border); border-radius: 14px; padding: 10px 14px; }
+.field label { display: block; font-size: 11px; font-weight: 600; color: var(--muted); text-transform: uppercase; letter-spacing: .06em; }
+.grip { color: var(--muted); }
+.badge { min-width: 18px; height: 18px; padding: 0 5px; border-radius: 99px; background: var(--accent); color: var(--on-accent); font-size: 11px; font-weight: 700; display: inline-grid; place-items: center; }
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute">
+  <symbol id="i-today" viewBox="0 0 24 24"><path d="M3 12h4l3-8 4 16 3-8h4"/></symbol>
+  <symbol id="i-dumbbell" viewBox="0 0 24 24"><path d="M6 7v10M3 9v6M18 7v10M21 9v6M6 12h12"/></symbol>
+  <symbol id="i-food" viewBox="0 0 24 24"><path d="M7 3v8a2 2 0 0 0 2 2v8M11 3v8M7 7h4M17 3c-2 2-2 6 0 8v10"/></symbol>
+  <symbol id="i-chart" viewBox="0 0 24 24"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></symbol>
+  <symbol id="i-users" viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20c.8-3.5 3.4-5.5 6.5-5.5s5.7 2 6.5 5.5M16 4.5a3.5 3.5 0 0 1 0 7M18 14.8c1.8.7 3 2.5 3.5 5.2"/></symbol>
+  <symbol id="i-book" viewBox="0 0 24 24"><path d="M4 5a2 2 0 0 1 2-2h14v16H6a2 2 0 0 0-2 2zM4 21V5"/></symbol>
+  <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></symbol>
+  <symbol id="i-flame" viewBox="0 0 24 24"><path d="M12 3s5 4.5 5 10a5 5 0 0 1-10 0c0-2.5 1.5-4 1.5-4s.5 2 2 2c0-3 1.5-8 1.5-8z"/></symbol>
+  <symbol id="i-cloud-off" viewBox="0 0 24 24"><path d="M3 3l18 18M8 7.5A5.5 5.5 0 0 1 17.5 10H18a4 4 0 0 1 2.2 7.3M17 19H7a5 5 0 0 1-2-9.6"/></symbol>
+  <symbol id="i-scan" viewBox="0 0 24 24"><path d="M4 8V5a1 1 0 0 1 1-1h3M16 4h3a1 1 0 0 1 1 1v3M20 16v3a1 1 0 0 1-1 1h-3M8 20H5a1 1 0 0 1-1-1v-3M8 8v8M11 8v8M14 8v8M17 8v8"/></symbol>
+  <symbol id="i-back" viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></symbol>
+  <symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></symbol>
+  <symbol id="i-msg" viewBox="0 0 24 24"><path d="M4 5h16v11H9l-5 4z"/></symbol>
+  <symbol id="i-grip" viewBox="0 0 24 24"><path d="M9 6h.01M15 6h.01M9 12h.01M15 12h.01M9 18h.01M15 18h.01"/></symbol>
+  <symbol id="i-send" viewBox="0 0 24 24"><path d="M4 12l16-8-6 16-2.5-6.5z"/></symbol>
+</svg>
+
+<!-- 1. Athlete: Today -->
+<section class="screen" id="today">
+  <div class="status"><span>9:41</span><span>●●● ▮</span></div>
+  <div class="content">
+    <div class="row between">
+      <div>
+        <div class="muted small">Tuesday, 21 October</div>
+        <h1 style="font-size:26px">Hi, Sam</h1>
+      </div>
+      <div class="toggle"><b class="on">Athlete</b><b>Coach</b></div>
+    </div>
+    <div class="row" style="gap:8px">
+      <span class="chip accent"><svg class="icon" style="width:14px;height:14px"><use href="#i-flame"/></svg>12-day streak</span>
+      <span class="chip"><span class="dot"></span>Offline · 2 changes queued</span>
+    </div>
+
+    <div class="card" style="display:flex;flex-direction:column;gap:12px">
+      <div class="row between"><span class="xs muted" style="font-weight:600;letter-spacing:.06em">TODAY'S WORKOUT</span><span class="xs muted">Week 3 · Day 2</span></div>
+      <div>
+        <h2 style="font-size:22px">Upper body A</h2>
+        <div class="muted small">5 exercises · 18 sets · ~45 min</div>
+      </div>
+      <div class="row" style="gap:6px;flex-wrap:wrap">
+        <span class="chip">Bench press</span><span class="chip">Row</span><span class="chip">Overhead press</span><span class="chip">+2</span>
+      </div>
+      <button class="btn block"><svg class="icon"><use href="#i-dumbbell"/></svg>Start workout</button>
+    </div>
+
+    <div class="card row" style="gap:16px">
+      <div class="ring">
+        <svg width="118" height="118" viewBox="0 0 104 104"><circle class="track" cx="52" cy="52" r="44" fill="none" stroke-width="10"/><circle class="val" cx="52" cy="52" r="44" fill="none" stroke-width="10" stroke-linecap="round" stroke-dasharray="276.5" stroke-dashoffset="98" transform="rotate(-90 52 52)"/></svg>
+        <div class="ring-txt"><b class="num" style="font-size:22px">1,420</b><span class="xs muted">/ 2,200 kcal</span></div>
+      </div>
+      <div style="flex:1;display:flex;flex-direction:column;gap:9px">
+        <div><div class="row between xs"><span>Protein</span><span class="muted">96 / 150 g</span></div><div class="bar"><i style="width:64%;background:var(--protein)"></i></div></div>
+        <div><div class="row between xs"><span>Carbs</span><span class="muted">150 / 240 g</span></div><div class="bar"><i style="width:62%;background:var(--carbs)"></i></div></div>
+        <div><div class="row between xs"><span>Fat</span><span class="muted">41 / 70 g</span></div><div class="bar"><i style="width:58%;background:var(--fat)"></i></div></div>
+      </div>
+    </div>
+
+    <div class="card row" style="align-items:flex-start">
+      <div class="thumb" style="color:var(--accent)"><svg class="icon"><use href="#i-msg"/></svg></div>
+      <div style="flex:1">
+        <div class="row between"><b class="small">Note from Coach Lee</b><span class="badge">1</span></div>
+        <div class="small muted">Add 2.5 kg to bench if all sets felt easy last week.</div>
+      </div>
+    </div>
+  </div>
+  <nav class="nav">
+    <a class="on"><svg class="icon"><use href="#i-today"/></svg>Today</a>
+    <a><svg class="icon"><use href="#i-dumbbell"/></svg>Workout</a>
+    <a><svg class="icon"><use href="#i-food"/></svg>Diet</a>
+    <a><svg class="icon"><use href="#i-chart"/></svg>Progress</a>
+  </nav>
+</section>
+
+<!-- 2. Athlete: Workout player -->
+<section class="screen" id="workout">
+  <div class="status"><span>9:41</span><span>●●● ▮</span></div>
+  <div class="content">
+    <div class="row between">
+      <div class="row"><svg class="icon"><use href="#i-back"/></svg><b>Upper body A</b></div>
+      <span class="chip"><svg class="icon" style="width:14px;height:14px"><use href="#i-sun"/></svg>Screen stays on</span>
+    </div>
+    <div>
+      <div class="row between xs muted"><span>Exercise 1 of 5</span><span>18:24 elapsed</span></div>
+      <div class="bar" style="margin-top:6px"><i style="width:15%;background:var(--accent);box-shadow:var(--glow)"></i></div>
+    </div>
+    <div>
+      <h1 style="font-size:28px">Bench press</h1>
+      <div class="muted small">4 × 8 · last time 60 kg × 8</div>
+    </div>
+
+    <div class="card" style="padding:12px 10px">
+      <table class="sets">
+        <tr><th>Set</th><th>Previous</th><th>kg</th><th>Reps</th><th></th></tr>
+        <tr class="done"><td><div class="cell">1</div></td><td class="muted small">60 × 8</td><td><div class="cell">62.5</div></td><td><div class="cell">8</div></td><td><div class="check done"><svg class="icon"><use href="#i-check"/></svg></div></td></tr>
+        <tr class="done"><td><div class="cell">2</div></td><td class="muted small">60 × 8</td><td><div class="cell">62.5</div></td><td><div class="cell">8</div></td><td><div class="check done"><svg class="icon"><use href="#i-check"/></svg></div></td></tr>
+        <tr class="current"><td><div class="cell">3</div></td><td class="muted small">60 × 8</td><td><div class="cell">62.5</div></td><td><div class="cell">7</div></td><td><div class="check"><svg class="icon"><use href="#i-check"/></svg></div></td></tr>
+        <tr><td><div class="cell">4</div></td><td class="muted small">60 × 7</td><td><div class="cell muted">62.5</div></td><td><div class="cell muted">8</div></td><td><div class="check"><svg class="icon"><use href="#i-check"/></svg></div></td></tr>
+      </table>
+    </div>
+
+    <div class="card" style="display:flex;flex-direction:column;align-items:center;gap:12px">
+      <span class="xs muted" style="font-weight:600;letter-spacing:.06em">REST</span>
+      <div class="ring">
+        <svg width="150" height="150" viewBox="0 0 150 150"><circle class="track" cx="75" cy="75" r="64" fill="none" stroke-width="10"/><circle class="val" cx="75" cy="75" r="64" fill="none" stroke-width="10" stroke-linecap="round" stroke-dasharray="402" stroke-dashoffset="160" transform="rotate(-90 75 75)" style="filter:drop-shadow(var(--glow-strong))"/></svg>
+        <div class="ring-txt"><b class="num" style="font-size:36px">01:12</b><span class="xs muted">of 02:00</span></div>
+      </div>
+      <div class="row" style="width:100%;gap:8px">
+        <button class="btn ghost" style="flex:1">−15 s</button>
+        <button class="btn ghost" style="flex:1">+15 s</button>
+        <button class="btn" style="flex:1.3">Skip rest</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 3. Athlete: Diet log -->
+<section class="screen" id="diet">
+  <div class="status"><span>9:41</span><span>●●● ▮</span></div>
+  <div class="content">
+    <div class="row between">
+      <div><div class="muted small">Today</div><h1 style="font-size:26px">Diet</h1></div>
+      <button class="btn" style="height:42px;padding:0 14px"><svg class="icon"><use href="#i-scan"/></svg>Scan</button>
+    </div>
+    <div class="card" style="display:flex;flex-direction:column;gap:10px">
+      <div class="row between"><div><b class="num" style="font-size:26px">780</b> <span class="muted small">kcal left</span></div><span class="muted small">1,420 eaten · 2,200 goal</span></div>
+      <div class="bar" style="height:10px"><i style="width:64%;background:var(--accent);box-shadow:var(--glow)"></i></div>
+      <div class="row between xs">
+        <span><b style="color:var(--protein)">●</b> Protein 96 g</span><span><b style="color:var(--carbs)">●</b> Carbs 150 g</span><span><b style="color:var(--fat)">●</b> Fat 41 g</span>
+      </div>
+    </div>
+
+    <div class="card" style="padding:6px 16px">
+      <div class="list">
+        <div class="item"><div><b>Breakfast</b><div class="xs muted">Oats, banana, Greek yogurt</div></div><div class="row"><b class="small">520</b><span class="chip" style="background:var(--ok);color:var(--bg)"><svg class="icon" style="width:14px;height:14px"><use href="#i-check"/></svg></span></div></div>
+        <div class="item"><div><b>Lunch</b><div class="xs muted">Chicken breast, rice, broccoli</div></div><div class="row"><b class="small">640</b><span class="chip" style="background:var(--ok);color:var(--bg)"><svg class="icon" style="width:14px;height:14px"><use href="#i-check"/></svg></span></div></div>
+        <div class="item"><div><b>Snack</b><div class="xs muted">Apple, almonds</div></div><div class="row"><b class="small">260</b><span class="chip" style="background:var(--ok);color:var(--bg)"><svg class="icon" style="width:14px;height:14px"><use href="#i-check"/></svg></span></div></div>
+        <div class="item"><div><b>Dinner</b><div class="xs muted">Planned: salmon, potatoes, salad · 690 kcal</div></div><button class="btn ghost" style="height:34px;padding:0 12px;font-size:13px">Log</button></div>
+      </div>
+    </div>
+
+    <div>
+      <div class="xs muted" style="font-weight:600;letter-spacing:.06em;margin-bottom:8px">RECENT FOODS</div>
+      <div class="card" style="padding:4px 16px">
+        <div class="list">
+          <div class="item"><div class="row"><div class="thumb">🥚</div><div><b class="small">Egg, whole, boiled</b><div class="xs muted">1 large · 78 kcal · P 6 g</div></div></div><svg class="icon" style="color:var(--accent)"><use href="#i-plus"/></svg></div>
+          <div class="item"><div class="row"><div class="thumb">🥛</div><div><b class="small">Milk, 2% fat</b><div class="xs muted">250 ml · 122 kcal · P 8 g</div></div></div><svg class="icon" style="color:var(--accent)"><use href="#i-plus"/></svg></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <nav class="nav">
+    <a><svg class="icon"><use href="#i-today"/></svg>Today</a>
+    <a><svg class="icon"><use href="#i-dumbbell"/></svg>Workout</a>
+    <a class="on"><svg class="icon"><use href="#i-food"/></svg>Diet</a>
+    <a><svg class="icon"><use href="#i-chart"/></svg>Progress</a>
+  </nav>
+</section>
+
+<!-- 4. Coach: Program builder -->
+<section class="screen" id="coach">
+  <div class="status"><span>9:41</span><span>●●● ▮</span></div>
+  <div class="content">
+    <div class="row between">
+      <h1 style="font-size:24px">New program</h1>
+      <div class="toggle"><b>Athlete</b><b class="on">Coach</b></div>
+    </div>
+    <div class="row" style="gap:8px">
+      <div class="field" style="flex:2"><label>Name</label><b>Strength base · 4 wk</b></div>
+      <div class="field" style="flex:1"><label>Athlete</label><b>Sam K.</b></div>
+    </div>
+    <div class="days"><b>Mon</b><b class="on">Tue</b><b class="rest">Wed</b><b>Thu</b><b class="rest">Fri</b><b>Sat</b><b class="rest">Sun</b></div>
+
+    <div class="card" style="padding:6px 14px">
+      <div class="row between" style="padding:10px 0 4px"><b>Tuesday · Upper body A</b><span class="xs muted">5 exercises</span></div>
+      <div class="list">
+        <div class="item"><div class="row"><svg class="icon grip"><use href="#i-grip"/></svg><div><b class="small">Bench press</b><div class="xs muted">4 × 8 · rest 2:00</div></div></div><span class="chip">62.5 kg</span></div>
+        <div class="item"><div class="row"><svg class="icon grip"><use href="#i-grip"/></svg><div><b class="small">Barbell row</b><div class="xs muted">4 × 8 · rest 2:00</div></div></div><span class="chip">55 kg</span></div>
+        <div class="item"><div class="row"><svg class="icon grip"><use href="#i-grip"/></svg><div><b class="small">Overhead press</b><div class="xs muted">3 × 10 · rest 1:30</div></div></div><span class="chip">35 kg</span></div>
+        <div class="item"><div class="row"><svg class="icon grip"><use href="#i-grip"/></svg><div><b class="small">Lat pulldown</b><div class="xs muted">4 × 12 · rest 1:15</div></div></div><span class="chip">50 kg</span></div>
+        <div class="item"><div class="row"><svg class="icon grip"><use href="#i-grip"/></svg><div><b class="small">Face pull</b><div class="xs muted">3 × 15 · rest 1:00</div></div></div><span class="chip">15 kg</span></div>
+      </div>
+      <div class="row" style="padding:10px 0;color:var(--accent);font-weight:600"><svg class="icon"><use href="#i-plus"/></svg>Add from library</div>
+    </div>
+
+    <div class="field"><label>Note to athlete</label><span class="muted">Add 2.5 kg to bench if all sets felt easy…</span></div>
+    <button class="btn block" style="flex:none"><svg class="icon"><use href="#i-send"/></svg>Assign to Sam</button>
+  </div>
+  <nav class="nav">
+    <a><svg class="icon"><use href="#i-users"/></svg>Athletes</a>
+    <a class="on"><svg class="icon"><use href="#i-dumbbell"/></svg>Programs</a>
+    <a><svg class="icon"><use href="#i-food"/></svg>Meal plans</a>
+    <a><svg class="icon"><use href="#i-book"/></svg>Library</a>
+  </nav>
+</section>
+
+<script>
+  const p = new URLSearchParams(location.search);
+  document.documentElement.dataset.theme = p.get("theme") || "light";
+  document.getElementById(p.get("screen") || "today").classList.add("on");
+</script>
+</body>
+</html>
