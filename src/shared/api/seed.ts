@@ -93,7 +93,7 @@ const demoPlan: MealPlan = {
     {
       slot: 'breakfast',
       items: [
-        { foodId: 'oats', grams: 60 },
+        { foodId: 'oats', grams: 80 },
         { foodId: 'banana', grams: 118 },
         { foodId: 'greek-yogurt', grams: 200 },
       ],
@@ -102,8 +102,9 @@ const demoPlan: MealPlan = {
       slot: 'lunch',
       items: [
         { foodId: 'chicken-breast', grams: 150 },
-        { foodId: 'rice-white', grams: 200 },
+        { foodId: 'rice-white', grams: 300 },
         { foodId: 'broccoli', grams: 120 },
+        { foodId: 'olive-oil', grams: 13.5 },
       ],
     },
     {
@@ -116,8 +117,8 @@ const demoPlan: MealPlan = {
     {
       slot: 'dinner',
       items: [
-        { foodId: 'salmon', grams: 150 },
-        { foodId: 'potato-boiled', grams: 250 },
+        { foodId: 'salmon', grams: 180 },
+        { foodId: 'potato-boiled', grams: 300 },
         { foodId: 'spinach', grams: 60 },
       ],
     },
