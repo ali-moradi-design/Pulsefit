@@ -1,8 +1,12 @@
 import { Link, Outlet, useLocation } from 'react-router'
 import { InstallBanner } from '@/features/install-app'
 import { LiveToasts } from '@/features/live-updates'
-import { ThemeSwitcher } from '@/features/switch-theme'
+import { ThemeCycleButton } from '@/features/switch-theme'
 import { UpdatePrompt } from '@/features/update-app'
+import { useReminderScheduler } from '@/features/workout-reminder'
+import { useUnreadCount } from '@/entities/note'
+import { setBadge } from '@/shared/lib'
+import { useEffect } from 'react'
 import { routes, type Role } from '@/shared/config'
 import { Icon } from '@/shared/ui'
 import { BottomNav } from './bottom-nav'
@@ -11,6 +15,10 @@ import { RoleSwitcher } from './role-switcher'
 export function AppShell() {
   const { pathname } = useLocation()
   const role: Role = pathname.startsWith('/coach') ? 'coach' : 'athlete'
+  const unread = useUnreadCount()
+  useReminderScheduler()
+  // App icon badge: unread coach notes.
+  useEffect(() => setBadge(unread), [unread])
   return (
     <div className="flex min-h-dvh flex-col">
       <header className="mx-auto flex w-full max-w-xl items-center justify-between gap-2 px-4 pt-[max(12px,env(safe-area-inset-top))] pb-2">
@@ -23,7 +31,8 @@ export function AppShell() {
         </Link>
         <div className="flex items-center gap-2">
           <RoleSwitcher role={role} />
-          <Link to={routes.status} aria-label="PWA status" className="text-muted">
+          <ThemeCycleButton />
+          <Link to={routes.status} aria-label="PWA status and settings" className="text-muted">
             <Icon name="info" />
           </Link>
         </div>
@@ -31,9 +40,6 @@ export function AppShell() {
       <main className="mx-auto flex w-full max-w-xl flex-1 flex-col gap-3.5 px-4 pb-4">
         <InstallBanner />
         <Outlet />
-        <div className="mt-auto flex justify-center pt-4">
-          <ThemeSwitcher />
-        </div>
       </main>
       <LiveToasts enabled={role === 'athlete'} />
       <UpdatePrompt />

@@ -1,4 +1,4 @@
-import { db, SYNC_TAG, type SyncedRecords, type SyncedTable } from '../db'
+import { db, PERIODIC_TAG, SYNC_TAG, type SyncedRecords, type SyncedTable } from '../db'
 
 type SyncManagerLike = { register: (tag: string) => Promise<void> }
 
@@ -56,4 +56,38 @@ export function initSync() {
     )
   flush()
   window.addEventListener('online', flush)
+}
+
+type PeriodicSyncLike = {
+  register: (tag: string, opts: { minInterval: number }) => Promise<void>
+  getTags: () => Promise<string[]>
+}
+
+export const supportsPeriodicSync = () =>
+  'serviceWorker' in navigator && 'PeriodicSyncManager' in window
+
+/** Only installed apps get the permission; elsewhere this quietly does nothing. */
+export async function registerPeriodicRefresh(): Promise<boolean> {
+  if (!supportsPeriodicSync()) return false
+  try {
+    const status = await navigator.permissions.query({
+      name: 'periodic-background-sync' as PermissionName,
+    })
+    if (status.state !== 'granted') return false
+    const reg = await navigator.serviceWorker.ready
+    const periodic = (reg as ServiceWorkerRegistration & { periodicSync?: PeriodicSyncLike })
+      .periodicSync
+    await periodic?.register(PERIODIC_TAG, { minInterval: 12 * 60 * 60 * 1000 })
+    return true
+  } catch {
+    return false
+  }
+}
+
+export async function periodicTags(): Promise<string[]> {
+  if (!supportsPeriodicSync()) return []
+  const reg = await navigator.serviceWorker.ready
+  const periodic = (reg as ServiceWorkerRegistration & { periodicSync?: PeriodicSyncLike })
+    .periodicSync
+  return (await periodic?.getTags().catch(() => [])) ?? []
 }

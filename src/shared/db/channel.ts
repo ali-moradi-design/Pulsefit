@@ -2,7 +2,7 @@
 export type ChannelMessage =
   | { type: 'program-assigned'; programName: string }
   | { type: 'meal-plan-assigned'; planName: string }
-  | { type: 'note-sent'; text: string }
+  | { type: 'note-sent'; noteId: string; text: string }
   | { type: 'synced'; count: number }
 
 const NAME = 'pulsefit'

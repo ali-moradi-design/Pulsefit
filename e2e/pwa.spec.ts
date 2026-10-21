@@ -1,4 +1,5 @@
 import { expect, test } from '@playwright/test'
+import { waitForServiceWorker } from './helpers'
 
 test('serves a complete web app manifest', async ({ page, request }) => {
   await page.goto('/')
@@ -15,12 +16,7 @@ test('serves a complete web app manifest', async ({ page, request }) => {
 
 test('works offline after the first visit', async ({ page, context }) => {
   await page.goto('/')
-  await page.evaluate(async () => {
-    await navigator.serviceWorker.ready
-  })
-  // The first visit is not controlled yet; reload so the worker serves the page.
-  await page.reload()
-  await expect.poll(() => page.evaluate(() => !!navigator.serviceWorker.controller)).toBe(true)
+  await waitForServiceWorker(page)
 
   await context.setOffline(true)
   await page.goto('/coach/library')

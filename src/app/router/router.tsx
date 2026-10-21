@@ -6,6 +6,7 @@ import { AppShell } from '@/widgets/app-shell'
 export const router = createBrowserRouter([
   {
     element: <AppShell />,
+    HydrateFallback: () => null,
     children: [
       { path: '/', element: <Navigate to={routes.athlete.today} replace /> },
       {

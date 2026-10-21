@@ -8,6 +8,7 @@ export const noteSchema = z.object({
 })
 
 export async function sendNote(text: string) {
-  await saveRecord('notes', { id: newId(), text, createdAt: Date.now() })
-  postMessage({ type: 'note-sent', text })
+  const id = newId()
+  await saveRecord('notes', { id, text, createdAt: Date.now() })
+  postMessage({ type: 'note-sent', noteId: id, text })
 }

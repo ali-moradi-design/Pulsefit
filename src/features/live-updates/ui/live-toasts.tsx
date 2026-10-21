@@ -1,8 +1,28 @@
+import { useCallback } from 'react'
+import type { ChannelMessage } from '@/shared/db'
+import { notify } from '@/shared/lib'
 import { Icon } from '@/shared/ui'
 import { useLiveToasts } from '../model/live-updates'
 
 export function LiveToasts({ enabled }: { enabled: boolean }) {
-  const { toasts, dismiss } = useLiveToasts(enabled)
+  // The same event also becomes a system notification (shown by the service worker).
+  const onMessage = useCallback((m: ChannelMessage, text: string) => {
+    if (m.type === 'note-sent') {
+      void notify('New note from Coach Lee', {
+        body: m.text,
+        tag: `note-${m.noteId}`,
+        data: { kind: 'note', noteId: m.noteId, url: '/athlete' },
+        actions: [{ action: 'read', title: 'Mark as read' }],
+      })
+    } else {
+      void notify('Pulsefit', {
+        body: text,
+        tag: m.type,
+        data: { kind: 'program', url: '/athlete' },
+      })
+    }
+  }, [])
+  const { toasts, dismiss } = useLiveToasts(enabled, onMessage)
   return (
     <div
       aria-live="polite"
