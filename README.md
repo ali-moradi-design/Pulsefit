@@ -64,6 +64,11 @@ pnpm build      # production build in dist/
 pnpm preview    # serve the build on http://localhost:4173 (with the service worker)
 ```
 
+## Deploy
+
+A container (static build in unprivileged Nginx) on the VPS, deployed after CI
+passes on `main`. See [docs/deploy.md](docs/deploy.md).
+
 ## Checks
 
 ```sh

@@ -11,12 +11,7 @@
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <link rel="apple-touch-icon" href="/icons/apple-touch-icon.png" />
     <title>Pulsefit</title>
-    <script>
-      try {
-        const s = JSON.parse(localStorage.getItem('pulsefit-settings') || '{}')
-        if (s.state && s.state.theme) document.documentElement.dataset.theme = s.state.theme
-      } catch {}
-    </script>
+    <script src="/theme-init.js"></script>
   </head>
   <body>
     <div id="root"></div>
