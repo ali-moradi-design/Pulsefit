@@ -1,0 +1,12 @@
+node_modules
+dist
+dev-dist
+coverage
+playwright-report
+test-results
+graphify-out
+.git
+.github
+.claude
+docs
+deploy
